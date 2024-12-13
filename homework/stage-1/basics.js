@@ -1,3 +1,6 @@
+
+// Домашнее задание на тему "Основы"
+
 const positionLatitude = 100
     , positionLongitude = 50
     , destinationLatitude = 100
