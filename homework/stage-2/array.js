@@ -1,61 +1,82 @@
-function test1(pass1 = 'password') {
-    if (typeof pass1 !== 'string') {
+function shufflePassword(pass = 'password') {
+    if (typeof pass !== 'string') {
         return 'Некорректный формат пароля!';
     }
 
-    let newArr = pass1.split('');
-    let itemA = newArr.splice(1, 1)[0];
-    newArr.splice(3, 0, itemA);
-    let itemW = newArr.splice(4, 1)[0];
-    newArr.splice(0, 0, itemW);
-    let itemO = newArr.splice(5, 1)[0];
-    newArr.splice(7, 0, itemO);
-    let itemD = newArr.splice(6, 1)[0];
-    newArr.splice(1, 0, itemD);
-    return newArr.join('');
+    const newArr = pass.split('');
+    
+    
+    const evenChars = [];
+    const oddChars = [];
+
+    for (let i = 0; i < newArr.length; i++) {
+        if (i % 2 === 0) {
+            evenChars.push(newArr[i]); 
+        } else {
+            oddChars.push(newArr[i]);
+        }
+    }
+
+    
+    return evenChars.join('') + oddChars.join('');
 }
 
-function test2(pass2 = 'password') {
-    if (typeof pass2 !== 'string') {
+function shufflePasswordBack(pass = 'password') {
+    if (typeof pass !== 'string') {
         return 'Некорректный формат пароля!';
     }
 
-    const okPassWord = test1(pass2).split('');
-    let newArr2 = [...okPassWord];
-    let itemP = newArr2.splice(2, 1)[0];
-    newArr2.splice(0, 0, itemP);
-    let itemA = newArr2.splice(5, 1)[0];
-    newArr2.splice(1, 0, itemA);
-    let itemW = newArr2.splice(2, 1)[0];
-    newArr2.splice(4, 0, itemW);
-    let itemD = newArr2.splice(2, 1)[0];
-    newArr2.splice(5, 0, itemD);
-    let itemO = newArr2.splice(7, 1)[0];
-    newArr2.splice(5, 0, itemO);
-    let itemR = newArr2.splice(7, 1)[0];
-    newArr2.splice(6, 0, itemR);
-    let itemS = newArr2.splice(4, 1)[0];
-    newArr2.splice(3, 0, itemS);
-    return newArr2.join('');
+    const newArr = pass.split('');
+
+    
+    const evenChars = [];
+    const oddChars = [];
+
+    for (let i = 0; i < newArr.length; i++) {
+        if (i % 2 === 0) {
+            evenChars.push(newArr[i]); 
+        } else {
+            oddChars.push(newArr[i]); 
+        }
+    }
+
+    
+    let restored = [];
+    let evenIndex = 0;
+    let oddIndex = 0;
+
+    for (let i = 0; i < newArr.length; i++) {
+        if (i % 2 === 0) {
+            restored.push(evenChars[evenIndex]);
+            evenIndex++;
+        } else {
+            restored.push(oddChars[oddIndex]);
+            oddIndex++;
+        }
+    }
+
+    return restored.join('');
 }
 
-function test(inputPassword) {
+function validatePassword(inputPassword) {
     if (typeof inputPassword !== 'string') {
         return 'Некорректный формат пароля!';
     }
 
-    const result1 = test1(inputPassword);
-    const result2 = test2(inputPassword);
+    
+    const result1 = shufflePassword(inputPassword);
+    const result2 = shufflePasswordBack(result1);
 
-    if (result1 === result2) {
+    if (inputPassword === result2) {
         return 'Пароль подошел!';
     } else {
         return 'Вы ввели неправильный пароль!';
     }
 }
 
-// Пример использования
+
 const inputPassword = 'password';
-console.log(test(inputPassword));
+console.log(validatePassword(inputPassword)); 
+
 
 
