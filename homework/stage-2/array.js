@@ -1,4 +1,8 @@
-function test1 (pass1 = 'password') {
+function test1(pass1 = 'password') {
+    if (typeof pass1 !== 'string') {
+        return 'Некорректный формат пароля!';
+    }
+
     let newArr = pass1.split('');
     let itemA = newArr.splice(1, 1)[0];
     newArr.splice(3, 0, itemA);
@@ -11,7 +15,11 @@ function test1 (pass1 = 'password') {
     return newArr.join('');
 }
 
-function test2 (pass2 = 'password') {
+function test2(pass2 = 'password') {
+    if (typeof pass2 !== 'string') {
+        return 'Некорректный формат пароля!';
+    }
+
     const okPassWord = test1(pass2).split('');
     let newArr2 = [...okPassWord];
     let itemP = newArr2.splice(2, 1)[0];
@@ -31,16 +39,23 @@ function test2 (pass2 = 'password') {
     return newArr2.join('');
 }
 
-function test (inputPassword) {
+function test(inputPassword) {
+    if (typeof inputPassword !== 'string') {
+        return 'Некорректный формат пароля!';
+    }
+
     const result1 = test1(inputPassword);
     const result2 = test2(inputPassword);
-    if(result1 === result2) {
-        return 'Пароль подошел!'
+
+    if (result1 === result2) {
+        return 'Пароль подошел!';
     } else {
-        return 'Вы ввели неправильный пароль!'
+        return 'Вы ввели неправильный пароль!';
     }
 }
 
+// Пример использования
 const inputPassword = 'password';
 console.log(test(inputPassword));
+
 
