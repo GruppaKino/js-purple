@@ -27,31 +27,47 @@ const taskManager = {
         const taskExists = this.tasks.some(task => task.id === id);
 
         if (taskExists) {
-            this.tasks = this.tasks.filter(task => task.id !== id)
+            this.tasks = this.tasks.filter(task => task.id !== id);
             return this.tasks
         } else {
-            return 'Задача с таким ID не найдена!'
+            return 'Задача с таким ID не найдена!';
         }
     },
 
-    // updateTask (id, update) {
-    //     if (typeof id !== 'number') return 'Это не ID';
+    updateTask (id, update) {
+        if (typeof id !== 'number' || (update !== 'string' && update !== 'number')) {
+            return 'Вы не правильно ввели значения!';
+        };
 
-    //     const findId = this.tasks.find(task => task.id === id);
+        const findID = this.tasks.findIndex(element => element.id === id);
 
-    //     if (findId == this.tasks.title) {
-    //         this.tasks.title = update
-    //         return this.tasks;
-    //     } else {
-    //         this.tasks.
-    //     }
-    // },
+        if (findID === -1) {
+            return 'Такого ID с задачй нет!';
+        };
 
-    // sortTasks (criteria, order) {
+        this.tasks[findID].title = update;
+        return this.tasks[findID];
+    },
 
-    // },
+    sortTasks (criteria) {
+        if (typeof criteria !== 'string') {
+            return 'Вы некорректно ввели значения!'
+        }
+
+        if (criteria === 'priority') {
+            this.tasks.sort((a, b) => a.priority - b.priority);
+        } else if (criteria === 'id') {
+            this.tasks.sort((a, b) => a.id - b.id);
+        } else if (criteria === 'title'){
+            this.tasks.sort((a, b) => a.title - b.title);
+        } else {
+            return 'Вы некорректно ввели значение'
+        }
+
+        return this.tasks;
+    },
 }
 taskManager.addTask('Почисить душ', 20);
 taskManager.addTask('Помыть машину', 30);
-taskManager.updateTask(1);
+taskManager.updateTask(1, 'Сходить на рынок');
 console.log(taskManager);
